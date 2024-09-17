@@ -12,3 +12,5 @@ _Note that this project in its current state showcases my ability to query data 
 #### Contact Me 📧
 - LinkedIn: https://www.linkedin.com/in/leahishmael/
 - Email: leeah.ishmael@gmail.com
+
+#### 🧠🎉 Thanks for joining me and I look forward to connecting with you 🎉🧠
