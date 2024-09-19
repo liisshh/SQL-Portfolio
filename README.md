@@ -21,4 +21,4 @@ This respository showcases my skills in the SQL data space.
 
 #### Contact Me 📧
 - LinkedIn: https://www.linkedin.com/in/leahishmael/
-- Email: leeah.ishmael@gmail.com
+- Email: l_ish@outlook.com
