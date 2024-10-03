@@ -1,0 +1,73 @@
+#### DATA CLEANING #####
+SELECT * FROM spotify_data.spotify_data;
+
+/* Create a new column for artists & songs */ 
+ALTER TABLE spotify_data.spotify_data
+ADD Artists VARCHAR(25);
+
+ALTER TABLE spotify_data.spotify_data
+ADD Songs VARCHAR(25);
+
+/* Separate songs & artists into column */ 
+SELECT 
+	LEFT(songs_artist, LOCATE('-', songs_artist) -1) AS artists_, 
+    RIGHT(songs_artist, length(songs_artist) - locate('-', songs_artist) - 1) as songs_
+FROM spotify_data.spotify_data;
+
+/* Modify the length of the characters to accommodate for longer names */ 
+ALTER TABLE spotify_data.spotify_data
+ADD Artists VARCHAR(100);
+
+ALTER TABLE spotify_data.spotify_data
+ADD Songs VARCHAR(100);
+
+/* Add the data to their respective columns */ 
+UPDATE spotify_data.spotify_data
+SET artists = LEFT(songs_artist, LOCATE('-', songs_artist) -1);
+
+UPDATE spotify_data.spotify_data
+SET songs = RIGHT(songs_artist, length(songs_artist) - locate('-', songs_artist) - 1);
+
+SELECT * 
+FROM spotify_data.spotify_data;
+
+/* Remove the original column and set up a PK column */
+ALTER TABLE spotify_data.spotify_data
+DROP SONGS_ARTIST;
+
+SELECT * 
+FROM spotify_data.spotify_data;
+
+ALTER TABLE spotify_data.spotify_data
+ADD COLUMN ID INT AUTO_INCREMENT PRIMARY KEY; 
+
+/* Rearranging the columns into preferred order */
+SELECT * 
+FROM spotify_data.spotify_data;
+
+ALTER TABLE spotify_data.spotify_data
+MODIFY ARTISTS VARCHAR(100) AFTER ID;
+
+ALTER TABLE spotify_data.spotify_data
+MODIFY STREAMS BIGINT AFTER SONGS;
+
+ALTER TABLE spotify_data.spotify_data
+MODIFY DAILY INT AFTER STREAMS;
+
+#### DATA QUERYING ####
+/* Top 10 overall streams */ 
+SELECT 
+		ID,
+		ARTISTS, 
+    SONGS,
+    STREAMS
+FROM spotify_data.spotify_data LIMIT 10; ### Null values have appeared at the bottom of this list, unsure as to why at this moment.  
+
+SELECT * FROM spotify_data.spotify_data;
+
+/* Artists with most streams */ 
+SELECT		
+		ARTISTS,
+		SUM(STREAMS)
+FROM spotify_data.spotify_data
+GROUP BY ARTISTS LIMIT 5;
